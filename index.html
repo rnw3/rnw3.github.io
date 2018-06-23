@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Motorway max speed check</title>
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+<style>   
+#input {position: sticky; top:0 ;width:16%; background-color: transparent;border:solid}
+#bnt {position: sticky; top: 0;background-color: transparent; text-align: center;font-family:Futura;font-size: 1vw; width: 8%;} 
+#bnt:hover, #bnt:active{background-color: rgb(0, 255, 255)} 
+#tab1 {border:transparent ;border-collapse: collapse; margin: 0 auto ; width: 100%;text-align: center;font-family:Futura;font-size: 1vw }
+th {height: 7vh ;text-decoration-line: underline}
+tr:hover, tr:active{background-color: rgb(0, 255, 255)} 
+/*tr:nth-child(even){background-color: #f2f2f2} //zebra-stript*/
+
+td {height: 15vh; width: 50%;}
+tr {width:50%}
+
+#bnt1 {border:transparent ;width: 50%; height: 15vh; margin: 0 auto; }   /*button*/
+#link {text-align: center; font-family: Futura; font-size: 3vw ; text-decoration:none; color: black;}
+.flag {display: none; max-width: auto; max-height: 13vh; margin-left: auto;
+    margin-right: auto/*  border-radius: 10px;  border: solid white;*/ }
+</style>
+<script>
+window.onload=function (){
+    var oBnt1=document.getElementById("bnt");
+    var oLink=document.getElementById("link")
+    var oTxt1=document.getElementById("input");
+    var oBnt=document.getElementById("bnt1");
+    var oTab=document.getElementById('tab1');
+    var aTxt=document.getElementsByClassName('txt1');
+    var aImg=document.getElementsByClassName('flag');
+
+    oBnt.onmouseover=function (){//button
+    oBnt.style.background="rgb(0, 255, 255)"
+    oBnt.value="click"
+    }
+    oBnt.onmouseout=function (){
+    oBnt.style.background="none"
+    oBnt.value="More Countries"
+    }
+    oLink.onmouseover=function (){//button text
+       oLink.innerHTML="click"
+      oLink.style.textDecorationLine="underline"
+    }
+    oLink.onmouseout=function (){
+      oLink.innerHTML="More Countries"
+      oLink.style.textDecorationLine="none"
+    }
+
+   /*var oldColor='';
+	for(let i=0;i<oTab.tBodies[0].rows.length;i++)
+	{
+    
+		oTab.tBodies[0].rows[i].onmouseover=function ()
+		{
+			oldColor=this.style.background; //change background color<
+			this.style.background='green';
+    }
+    
+		oTab.tBodies[0].rows[i].onmouseout=function ()
+		{
+			this.style.background=oldColor;
+		};
+		
+		if(i%2)
+		{
+			oTab.tBodies[0].rows[i].style.background='';
+		}
+		else
+		{
+			oTab.tBodies[0].rows[i].style.background='#CCC';  //>color
+		}
+  }*/
+
+    oBnt1.onclick=function (){//search
+  for(let i=0;i<oTab.tBodies[0].rows.length;i++){ 
+     
+      let sTab=oTab.tBodies[0].rows[i].innerHTML
+     
+      
+
+        var content=[aTxt[i].innerHTML]
+        if(sTab.search(oTxt1.value)!=-1){
+            /*content=content push ++*/
+          alert("In "+content+" I can drive as I want.")
+      
+        }
+      }
+		}
+
+	
+
+for (let i=0; i<aImg.length; i++){ 
+let timer=null
+aImg[i].onmouseover=aTxt[i].onmouseover=function() {
+clearTimeout(timer)
+aImg[i].style.display="block"
+aTxt[i].style.display="none"
+}
+aImg[i].onmouseout=aTxt[i].onmouseout=function() {
+timer=setTimeout(function (){
+    aImg[i].style.display="none" 
+    aTxt[i].style.display="block"},300)}
+}  
+}
+
+</script>
+</head>
+<body>
+    <input id="input" type="text" title="My speed">
+    <button id="bnt" title="Input you seppd">search</button>
+    <div overflow-x:auto><table id="tab1" border="1" item-width="300pxs">
+    <thead>
+     <tr>     
+       <th>Country</th>
+       <th>Max Speed</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+        <td> 
+        <div><a href="images/be.svg"> <img  class="flag" src="images/au.svg"></a></div>
+        <span class="txt1">Australia</span>
+        </td>
+        <td style="font-size: 3vw">110</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> <img  class="flag" src="images/at.svg"></div>
+        <span class="txt1">Austria</span>
+        </td>
+        <td style="font-size: 3vw">130</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> <img  class="flag" src="images/be.svg"></div>
+        <span class="txt1">belgium</span>
+        </td>
+        <td style="font-size: 3vw">120</td>
+     </tr>
+        <td> 
+        <span class="txt1">braizl</span>
+        </td>
+        <td style="font-size: 3vw">120</td>
+      </tr>
+      <tr>
+        <td>Bulgaria</td>
+        <td style="font-size: 3vw">140</td>
+      </tr>
+      <tr>
+        <td>Canada</td>
+        <td style="font-size: 3vw">120</td>  
+      </tr>
+      <tr>
+        <td>China</td>
+        <td style="font-size: 3vw">120</td>
+      </tr>
+        <td></td>
+        <td style="font-size: 3vw"></td>
+      </tr>
+        </tr>
+        <td> </td>
+        <td style="font-size: 3vw"> </td>
+      </tr>
+        </tr>
+        <td> </td>
+        <td style="font-size: 3vw"> </td>
+      </tr>
+        </tr>
+        <td> </td>
+        <td style="font-size: 3vw"> </td>
+      </tr>
+        </tr>
+        <td> </td>
+        <td style="font-size: 3vw"> </td>
+      </tr>
+        </tr>
+        <td> </td>
+        <td style="font-size: 3vw"> </td>
+      </tr>
+      
+
+      
+      
+      
+      
+      
+      
+     
+   </tbody>
+    </table></div>
+    <div>
+   <button id="bnt1"  title="wikipedia"><a id="link" href="https://en.wikipedia.org/wiki/Speed_limits_by_country#Countries">More Countries</a></button>
+  </div>
+ </body>
+</html>
