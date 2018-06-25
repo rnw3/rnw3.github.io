@@ -3,27 +3,25 @@
 <head>
 <title>Motorway max speed check</title>
 <meta charset="utf-8">
-
-
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <style>   
-#input {position: sticky; top:0 ;width:16%; background-color: transparent;border:solid}
-#bnt {position: sticky; top: 0;background-color: transparent; text-align: center;font-family:Futura;font-size: 1vw; width: 8%;} 
-#bnt:hover, #bnt:active{background-color: rgb(0, 255, 255)} 
-#tab1 {border:transparent ;border-collapse: collapse; margin: 0 auto ; width: 100%;text-align: center;font-family:Futura;font-size: 1vw }
-th {height: 7vh ;text-decoration-line: underline}
-tr:hover, tr:focus{background-color: rgb(0, 255, 255)} 
-/*tr:nth-child(even){background-color: #f2f2f2} //zebra-stript*/
-
-td {height: 15vh; width: 50%;}
-tr {width:50%}
-
-#bnt1 {border:transparent ;width: 50%; height: 15vh; margin: 0 auto; }   /*button*/
-#link {text-align: center; font-family: Futura; font-size: 3vw ; text-decoration:none; color: black;}
-.flag {display: none; max-width: auto; max-height: 13vh; margin-left: auto;
-    margin-right: auto/*  border-radius: 10px;  border: solid white;*/ }
+#input {position: sticky; top: 0; width:18vw; height: 15vh; background-color: transparent; border:solid; font-size: 6vw} 
+#input::placeholder {font-family:AppleGothic; font-size: 2.5vh; text-align:left}
+#bnt {top: 17vh; position: sticky; background-color: transparent; text-align: center; line-height: 9vh; font-family:Futura;
+font-size: 5vw; width: 18vw; height: 9vh} 
+#bnt:hover {background-color: rgb(0, 255, 255)} 
+#tab1 {position: relative;float: right; border:transparent; border-collapse: collapse; margin: 0 auto ; width: 81%; text-align: center;
+font-family:Futura; font-size: 1.5vw}
+th {height: 15vh; text-decoration-line: underline}
+tr:hover {background-color: rgb(0, 255, 255)} 
+td {height: 30vh; width: 50%}
+tr {width: 50%}
+#bnt1 {border:transparent; width: 100%; height: 15vh; margin: 0 auto} 
+#link {text-align: center; font-family: Futura; font-size: 4vw ; text-decoration:none; color: black}
+.flag {display: none; max-width: auto; max-height: 26vh; margin-left: auto;
+    margin-right: auto}
+.num {font-size: 5.5vw; font-weight: bold}
+.lk {color: black; font-family:Futura;font-size: 1.5vw}
 </style>
 <script>
 window.onload=function (){
@@ -35,7 +33,7 @@ window.onload=function (){
     var aTxt=document.getElementsByClassName('txt1');
     var aImg=document.getElementsByClassName('flag');
 
-    oBnt.onmouseover=function (){//button
+    oBnt.onmouseover=function (){     //button
     oBnt.style.background="rgb(0, 255, 255)"
     oBnt.value="click"
     }
@@ -43,8 +41,8 @@ window.onload=function (){
     oBnt.style.background="none"
     oBnt.value="More Countries"
     }
-    oLink.onmouseover=function (){//button text
-       oLink.innerHTML="click"
+    oLink.onmouseover=function (){  //button text
+      oLink.innerHTML="click"
       oLink.style.textDecorationLine="underline"
     }
     oLink.onmouseout=function (){
@@ -52,47 +50,37 @@ window.onload=function (){
       oLink.style.textDecorationLine="none"
     }
 
-   /*var oldColor='';
-	for(let i=0;i<oTab.tBodies[0].rows.length;i++)
-	{
-    
-		oTab.tBodies[0].rows[i].onmouseover=function ()
-		{
-			oldColor=this.style.background; //change background color<
-			this.style.background='green';
+    oTxt1.onkeydown=function(ev){   //enter submit
+    var oEvent=ev||event;
+    if(oEvent.keyCode==13){ 
+      oBnt1.onclick()}
+    if(oEvent.keyCode!==13 && oEvent.keyCode!=8 && (oEvent.keyCode<48 || oEvent.keyCode>57)){  //forbid other input
+      return false 
+    } 
     }
-    
-		oTab.tBodies[0].rows[i].onmouseout=function ()
-		{
-			this.style.background=oldColor;
-		};
-		
-		if(i%2)
-		{
-			oTab.tBodies[0].rows[i].style.background='';
-		}
-		else
-		{
-			oTab.tBodies[0].rows[i].style.background='#CCC';  //>color
-		}
-  }*/
 
-    oBnt1.onclick=function (){//search
-  for(let i=0;i<oTab.tBodies[0].rows.length;i++){ 
-     
-      let sTab=oTab.tBodies[0].rows[i].innerHTML
-     
-      
-
-        var content=[aTxt[i].innerHTML]
-        if(sTab.search(oTxt1.value)!=-1){
-            /*content=content push ++*/
-          alert("In "+content+" I can drive as I want.")
-      
+    oBnt1.onclick=function enter(){   //search
+    var content=[];                 //define a container for Array
+    if(oTxt1.value>60&&oTxt1.value<300){
+      for(let i=0;i<oTab.tBodies[0].rows.length;i++){ //loop the table
+        let sTab=oTab.tBodies[0].rows[i].cells[1].innerHTML// each content in the table
+        var abc=aTxt[i].innerHTML
+        if(parseInt(oTxt1.value)<=sTab) {    //judge 1. actual=speed 2. actual<speed?? !!!
+          content.push(abc) 
         }
       }
+      if(oTxt1.value>140&&oTxt1.value<300) {
+       alert("Germany") 
+      }else{
+       alert(content+" and Germany")
+      }
 		}
-
+    else if(oTxt1.value>=300){
+       alert("too fast!")}
+    else{
+       alert("too slow")
+    }
+    }
 	
 
 for (let i=0; i<aImg.length; i++){ 
@@ -105,97 +93,242 @@ aTxt[i].style.display="none"
 aImg[i].onmouseout=aTxt[i].onmouseout=function() {
 timer=setTimeout(function (){
     aImg[i].style.display="none" 
-    aTxt[i].style.display="block"},300)}
+    aTxt[i].style.display="block"},500)}
 }  
 }
-
 </script>
 </head>
 <body>
-    <input id="input" type="text" title="My speed">
-    <button id="bnt" title="Input you seppd">search</button>
-    <div overflow-x:auto><table id="tab1" border="1" item-width="300pxs">
+    <div>
+    <input id="input" type="text" title="my speed" placeholder="press Enter to search"><br>
+    <button id="bnt" title="Input your desired speed, and check in where conutires the speed are allowed">search</button>
+    
+    <table id="tab1">
     <thead>
      <tr>     
        <th>Country</th>
-       <th>Max Speed</th>
+       <th>Max Speed km/h</th>
      </tr>
     </thead>
     <tbody>
      <tr>
         <td> 
-        <div><a href="images/be.svg"> <img  class="flag" src="images/au.svg"></a></div>
+        <div>
+          <a href="images/au.jpg"><img  class="flag" src="images/au.svg"></a>
+        </div>
         <span class="txt1">Australia</span>
         </td>
-        <td style="font-size: 3vw">110</td>
+        <td class="num">110</td>
      </tr>
      <tr>
         <td> 
-        <div> <img  class="flag" src="images/at.svg"></div>
+        <div> 
+          <img  class="flag" src="images/at.svg">
+        </div>
         <span class="txt1">Austria</span>
         </td>
-        <td style="font-size: 3vw">130</td>
+        <td class="num">130</td>
      </tr>
      <tr>
         <td> 
-        <div> <img  class="flag" src="images/be.svg"></div>
-        <span class="txt1">belgium</span>
+        <div> 
+          <img  class="flag" src="images/be.svg">
+        </div>
+        <span class="txt1">Belgium</span>
         </td>
-        <td style="font-size: 3vw">120</td>
+        <td class="num">120</td>
      </tr>
+     <tr>
         <td> 
-        <span class="txt1">braizl</span>
+        <div> 
+          <img  class="flag" src="images/br.svg">
+        </div>
+        <span class="txt1">Brazil</span>
         </td>
-        <td style="font-size: 3vw">120</td>
-      </tr>
-      <tr>
-        <td>Bulgaria</td>
-        <td style="font-size: 3vw">140</td>
-      </tr>
-      <tr>
-        <td>Canada</td>
-        <td style="font-size: 3vw">120</td>  
-      </tr>
-      <tr>
-        <td>China</td>
-        <td style="font-size: 3vw">120</td>
-      </tr>
-        <td></td>
-        <td style="font-size: 3vw"></td>
-      </tr>
-        </tr>
-        <td> </td>
-        <td style="font-size: 3vw"> </td>
-      </tr>
-        </tr>
-        <td> </td>
-        <td style="font-size: 3vw"> </td>
-      </tr>
-        </tr>
-        <td> </td>
-        <td style="font-size: 3vw"> </td>
-      </tr>
-        </tr>
-        <td> </td>
-        <td style="font-size: 3vw"> </td>
-      </tr>
-        </tr>
-        <td> </td>
-        <td style="font-size: 3vw"> </td>
-      </tr>
-      
-
-      
-      
-      
-      
-      
-      
+        <td class="num">120</td>
+     </tr> 
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/bg.svg">
+        </div>
+        <span class="txt1">Bulgaria</span>
+        </td>
+        <td class="num">140</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/ca.svg">
+        </div>
+        <span class="txt1">Canada</span>
+        </td>
+        <td class="num">120</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/cn.svg">
+        </div>
+        <span class="txt1">China</span>
+        </td>
+        <td class="num">120</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/cz.svg">
+        </div>
+        <span class="txt1">Czech Republic</span>
+        </td>
+        <td class="num">130</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/is.svg">
+        </div>
+        <span class="txt1">Iceland</span>
+        </td>
+        <td class="num">90</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/in.svg">
+        </div>
+        <span class="txt1">India</span>
+        </td>
+        <td class="num">120</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/id.svg">
+        </div>
+        <span class="txt1">Indonesia</span>
+        </td>
+        <td class="num">100</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/jp.svg">
+        </div>
+        <span class="txt1">Japan</span>
+        </td>
+        <td class="num">120</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/kz.svg">
+        </div>
+        <span class="txt1">Kazakhstan</span>
+        </td>
+        <td class="num">110</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/lb.svg">
+        </div>
+        <span class="txt1">Lebanon</span>
+        </td>
+        <td class="num">100</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/mn.svg">
+        </div>
+        <span class="txt1">Mongolia</span>
+        </td>
+        <td class="num">130</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/no.svg">
+        </div>
+        <span class="txt1">Norway</span>
+        </td>
+        <td class="num">110</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/pk.svg">
+        </div>
+        <span class="txt1">Pakistan</span>
+        </td>
+        <td class="num">120</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/ph.svg">
+        </div>
+        <span class="txt1">Philippines</span>
+        </td>
+        <td class="num">100</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/sg.svg">
+        </div>
+        <span class="txt1">Singapore</span>
+        </td>
+        <td class="num">90</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/za.svg">
+        </div>
+        <span class="txt1">South Africa</span>
+        </td>
+        <td class="num">120</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/ch.svg">
+        </div>
+        <span class="txt1">Switzerland</span>
+        </td>
+        <td class="num">120</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/gb.svg">
+        </div>
+        <span class="txt1">United Kingdom</span>
+        </td>
+        <td class="num">113</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/sg.svg">
+        </div>
+        <span class="txt1">Uruguay</span>
+        </td>
+        <td class="num">110</td>
+     </tr>
      
-   </tbody>
-    </table></div>
-    <div>
-   <button id="bnt1"  title="wikipedia"><a id="link" href="https://en.wikipedia.org/wiki/Speed_limits_by_country#Countries">More Countries</a></button>
-  </div>
+    </tbody>
+    </table>
+    <button id="bnt1"  title="wikipedia">
+      <a id="link" href="https://en.wikipedia.org/wiki/Speed_limits_by_country#Countries">More Countries</a>
+    </button>
+    <div class="lk" style="float:left">
+    <address>
+    Written by <a class="lk" href="mailto:ruoinwu@gmail.com">Ruoning Wu</a>
+    </address>
+    <a class="lk" href="Ruoning Wu_Portfolio.pdf" download="Mappen.pdf" >Download Portfolio (PDF, 79.9MB)</a>
+    </div>
  </body>
 </html>
