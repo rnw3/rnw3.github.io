@@ -1,45 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Motorway max speed check</title>
+<title>Motorway max-speed limit</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <style>   
-#input {position: sticky; top: 0; width:18vw; height: 15vh; background-color: transparent; border:solid; font-size: 6vw} 
-#input::placeholder {font-family:AppleGothic; font-size: 2.5vh; text-align:left}
-#bnt {top: 17vh; position: sticky; background-color: transparent; text-align: center; line-height: 9vh; font-family:Futura;
-font-size: 5vw; width: 18vw; height: 9vh} 
+#input {position: relative; top: 0vh; width:30vw; height: 15vh; border-color: aqua; font-size: 8vw; color: aqua} 
+#input::placeholder {font-family: AppleGothic; font-size: 3vh; text-align:left}
+#bnt {line-height: 12vh; font-family: AppleGothic; font-size: 5.5vw; width: 30vw; height: 12vh; border:solid aqua; 
+position: absolute; top: 19vh; left: 1vw} 
 #bnt:hover {background-color: rgb(0, 255, 255)} 
-#tab1 {position: relative;float: right; border:transparent; border-collapse: collapse; margin: 0 auto ; width: 81%; text-align: center;
-font-family:Futura; font-size: 1.5vw}
+#result {position: absolute; top: 34vh; left: 1vw; height: 50vh; width: 30vw; border: solid black; 
+  font-family:Futura; font-size: 4vh}
+#tab1 {border:transparent; border-collapse: collapse;  text-align: center; font-family:Futura; width: 67vw;
+border-spacing: 0; font-size: 1.5vw; position: absolute; top: 1vh; right: 0 }
 th {height: 15vh; text-decoration-line: underline}
 tr:hover {background-color: rgb(0, 255, 255)} 
-td {height: 30vh; width: 50%}
-tr {width: 50%}
-#bnt1 {border:transparent; width: 100%; height: 15vh; margin: 0 auto} 
+td {height: 30vh}
+#bnt1 {border:transparent; width: 67vw; height: 15vh; margin: 0 auto; position: absolute; bottom: 1vh; right: 0} 
 #link {text-align: center; font-family: Futura; font-size: 4vw ; text-decoration:none; color: black}
-.flag {display: none; max-width: auto; max-height: 26vh; margin-left: auto;
-    margin-right: auto}
+.flag {display: none; max-width: auto; max-height: 21vh; margin-left: auto;
+margin-right: auto}
 .num {font-size: 5.5vw; font-weight: bold}
 .lk {color: black; font-family:Futura;font-size: 1.5vw}
+
+tbody, thead tr {display: block}
+tbody {height: 68vh; overflow-y: scroll; overflow-x: hidden}
+tbody td, thead th {width: 33vw}
+thead th:last-child {width: 35vw}
 </style>
 <script>
 window.onload=function (){
-    var oBnt1=document.getElementById("bnt");
+    var oBnt1=document.getElementById("bnt")
     var oLink=document.getElementById("link")
-    var oTxt1=document.getElementById("input");
-    var oBnt=document.getElementById("bnt1");
-    var oTab=document.getElementById('tab1');
-    var aTxt=document.getElementsByClassName('txt1');
-    var aImg=document.getElementsByClassName('flag');
+    var oTxt1=document.getElementById("input")
+    var oBnt=document.getElementById("bnt1")
+    var oTab=document.getElementById('tab1')
+    var aTxt=document.getElementsByClassName('txt1')
+    var aImg=document.getElementsByClassName('flag')
+    var oResult=document.getElementById("result")
 
     oBnt.onmouseover=function (){     //button
     oBnt.style.background="rgb(0, 255, 255)"
-    oBnt.value="click"
     }
     oBnt.onmouseout=function (){
     oBnt.style.background="none"
-    oBnt.value="More Countries"
     }
     oLink.onmouseover=function (){  //button text
       oLink.innerHTML="click"
@@ -51,7 +56,7 @@ window.onload=function (){
     }
 
     oTxt1.onkeydown=function(ev){   //enter submit
-    var oEvent=ev||event;
+    var oEvent=ev||event
     if(oEvent.keyCode==13){ 
       oBnt1.onclick()}
     if(oEvent.keyCode!==13 && oEvent.keyCode!=8 && (oEvent.keyCode<48 || oEvent.keyCode>57)){  //forbid other input
@@ -69,16 +74,16 @@ window.onload=function (){
           content.push(abc) 
         }
       }
-      if(oTxt1.value>140&&oTxt1.value<300) {
-       alert("Germany") 
+      if(oTxt1.value>140&&oTxt1.value<300) {  //make alert looks better
+        oResult.innerHTML="Germany"
       }else{
-       alert(content+" and Germany")
+        oResult.innerHTML=content+" and Germany"
       }
 		}
     else if(oTxt1.value>=300){
-       alert("too fast!")}
+      oResult.innerHTML="Your speed would be too fast!"}
     else{
-       alert("too slow")
+      oResult.innerHTML="Your speed would be too slow."
     }
     }
 	
@@ -93,20 +98,19 @@ aTxt[i].style.display="none"
 aImg[i].onmouseout=aTxt[i].onmouseout=function() {
 timer=setTimeout(function (){
     aImg[i].style.display="none" 
-    aTxt[i].style.display="block"},500)}
+    aTxt[i].style.display="block"},300)} //executed when move out
 }  
 }
 </script>
 </head>
 <body>
-    <div>
-    <input id="input" type="text" title="my speed" placeholder="press Enter to search"><br>
+    <input id="input" type="text" title="my speed" placeholder="press Enter to search deisred speed">
     <button id="bnt" title="Input your desired speed, and check in where conutires the speed are allowed">search</button>
-    
+    <textarea readonly id="result" title="result"></textarea>
     <table id="tab1">
     <thead>
-     <tr>     
-       <th>Country</th>
+     <tr >     
+       <th>Country</th> 
        <th>Max Speed km/h</th>
      </tr>
     </thead>
@@ -180,6 +184,24 @@ timer=setTimeout(function (){
           <img  class="flag" src="images/cz.svg">
         </div>
         <span class="txt1">Czech Republic</span>
+        </td>
+        <td class="num">130</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/fr.svg">
+        </div>
+        <span class="txt1">France</span>
+        </td>
+        <td class="num">130</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/gr.svg">
+        </div>
+        <span class="txt1">Greece</span>
         </td>
         <td class="num">130</td>
      </tr>
@@ -267,6 +289,15 @@ timer=setTimeout(function (){
      <tr>
         <td> 
         <div> 
+          <img  class="flag" src="images/pl.svg">
+        </div>
+        <span class="txt1">Poland</span>
+        </td>
+        <td class="num">140</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
           <img  class="flag" src="images/ph.svg">
         </div>
         <span class="txt1">Philippines</span>
@@ -276,11 +307,29 @@ timer=setTimeout(function (){
      <tr>
         <td> 
         <div> 
+          <img  class="flag" src="images/sm.svg">
+        </div>
+        <span class="txt1">San Marino</span>
+        </td>
+        <td class="num">70</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
           <img  class="flag" src="images/sg.svg">
         </div>
         <span class="txt1">Singapore</span>
         </td>
         <td class="num">90</td>
+     </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/sa.svg">
+        </div>
+        <span class="txt1">Saudi Arabia</span>
+        </td>
+        <td class="num">140</td>
      </tr>
      <tr>
         <td> 
@@ -318,17 +367,28 @@ timer=setTimeout(function (){
         </td>
         <td class="num">110</td>
      </tr>
+     <tr>
+        <td> 
+        <div> 
+          <img  class="flag" src="images/uz.svg">
+        </div>
+        <span class="txt1">Uzbekistan</span>
+        </td>
+        <td class="num">100</td>
+     </tr>
+     
      
     </tbody>
     </table>
+
     <button id="bnt1"  title="wikipedia">
       <a id="link" href="https://en.wikipedia.org/wiki/Speed_limits_by_country#Countries">More Countries</a>
     </button>
-    <div class="lk" style="float:left">
+    <div class="lk" style="position: absolute; bottom: 3vh; left: 1vw">
     <address>
     Written by <a class="lk" href="mailto:ruoinwu@gmail.com">Ruoning Wu</a>
     </address>
-    <a class="lk" href="Ruoning Wu_Portfolio.pdf" download="Mappen.pdf" >Download Portfolio (PDF, 79.9MB)</a>
-    </div>
+    <a class="lk" href="https://drive.google.com/file/d/1vSajjGC44sFcYq7hqeTJw4XGDMKc2Bav/view?usp=sharing" >View Portfolio</a>
+  </div>
  </body>
 </html>
